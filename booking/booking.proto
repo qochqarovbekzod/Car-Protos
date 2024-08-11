@@ -1,0 +1,224 @@
+syntax ="proto3";
+
+option go_package="generated/booking";
+
+package booking;
+
+service BookingService{
+    rpc CreateBooking(CreateBookingRequest) returns (Void);
+    rpc GetByIdBooking(Id) returns (Booking);
+    rpc UpdateBooking(UpdateBookingRequest) returns (Booking);
+    rpc DeleteBooking(Id) returns (Void);
+    rpc GetAllBookings(GetAllBookingRequest) returns (GetAllBookingsResponse);
+
+    rpc CreateService(CreateServiceRequest) returns (Void);
+    rpc UpdateService(UpdateServiceRequest) returns (Service);
+    rpc DeleteService(Id) returns (Void);
+    rpc GetAllServices(GetAllServicesRequest) returns (GetAllServicesResponse);
+    rpc GetByIdService(Id) returns (Service);
+
+    rpc CreatePayment(CreatePaymentRequest) returns (Void);
+    rpc GetByIdPayment(Id) returns (Payment);
+    rpc GetAllPayments(Void) returns (GetAllPaymentsResponse);
+
+    rpc CreateReview(CreateReviewRequest) returns (Void);
+    rpc UpadateReview(UpadateReviewRequest) returns (Review);
+    rpc DeleteReview(Id) returns (Void);
+    rpc GetAllReviews(GetAllReviewsRequest) returns (GetAllReviewsResponse);
+    rpc GetByIdReview(Id) returns (Review);
+
+    rpc SearchProviders(SearchProvidersRequest) returns (SearchProvidersResponse);
+    rpc SearchServices(SearchServicesRequest) returns (SearchServicesResponse);
+}
+
+message Id{
+    string id =1;
+}
+
+message Void{}
+
+
+message CreateBookingRequest{
+    string user_id = 1;
+    string company_name =2;
+    string description=3;
+    string services=4;
+    string availability=5;
+    float  average_rating=6;
+    string Location=7;
+}
+
+
+message Booking{
+    string id=1;
+    string user_id = 2;
+    string company_name =3;
+    string description=4;
+    string services=5;
+    string availability=6;
+    float  average_rating=7;
+    string Location=8;
+    string created_at=9;
+    string updated_at=10;
+}
+
+message UpdateBookingRequest{
+    string id=1;
+    string user_id = 2;
+    string company_name =3;
+    string description=4;
+    string services=5;
+    string availability=6;
+    float  average_rating=7;
+    string Location=8;
+}
+
+message GetAllBookingRequest{
+    string company_name = 1;
+    string description=2;
+    string services=3;
+    string availability=4;
+    float  average_rating=5;
+    int64 limit =6;
+    int64 page =7;
+}
+
+message GetAllBookingsResponse{
+    repeated Booking bookings =1;
+    int32 limit=2;
+    int32 page=3;
+}
+
+
+
+message CreateServiceRequest{
+    string name=1;
+    string description=2;
+    float  price=3;
+    int64  duration=4;
+}
+
+message UpdateServiceRequest{
+    string id=1;
+    string name=2;
+    string description=3;
+    float  price=4;
+    int64  duration=5;
+}
+
+message Service{
+    string id=1;
+    string name=2;
+    string description=3;
+    float  price=4;
+    int64  duration=5;
+    string created_at=6;
+    string updated_at=7;
+}
+
+message GetAllServicesRequest{
+    string name=1;
+    string description=2;
+    float  price=3;
+    int64  duration=4;
+    int32 limit=5;
+    int64 page =6;
+
+}
+
+message GetAllServicesResponse{
+    repeated Service services =1;
+    int32 limit=2;
+    int32 page=3;
+}
+
+message CreatePaymentRequest{
+    string booking_id=1;
+    float  amount=2;
+    string status=3;
+    string payment_method=4;
+    string transaction_id=5;
+   
+}
+
+message GetAllPaymentsResponse{
+    repeated Payment payments =1;
+}
+
+message Payment{
+    string id=1;
+    string booking_id=2;
+    float  amount=3;
+    string status=4;
+    string payment_method=5;
+    string transaction_id=6;
+    string created_at=7;
+    string updated_at=8;
+}
+
+message CreateReviewRequest{
+    string booking_id=1;
+    string user_id=2;
+    string provider_id=3;
+    int32  rating=4;
+    string comment=5;
+}
+
+message UpadateReviewRequest{
+    string id=1;
+    string booking_id=2;
+    string user_id=3;
+    string provider_id=4;
+    int32  rating=5;
+    string comment=6;
+}
+
+message Review{
+    string id=1;
+    string booking_id=2;
+    string user_id=3;
+    string provider_id=4;
+    int32  rating=5;
+    string comment=6;
+    string created_at=7;
+    string updated_at=8;
+}
+
+message GetAllReviewsRequest{
+    string booking_id=1;
+    string provider_id=3;
+    int64 rating=4;
+    string comment=5;
+    int32 limit=6;
+    int64 page = 7;
+}
+
+message GetAllReviewsResponse{
+    repeated Review reviews =1;
+    int32 limit=2;
+    int64 page = 3;
+}
+
+message SearchProvidersRequest {
+    string query = 1;
+}
+
+message SearchProvidersResponse {
+    repeated GetProviderResponse providers = 1;
+}
+
+message SearchServicesRequest {
+    string query = 1;
+}
+
+message SearchServicesResponse {
+    repeated CreateServiceRequest services = 1;
+}
+
+message GetProviderResponse {
+    string provider_id = 1;
+    string company_name = 2;
+    string description = 3;
+    float average_rating = 4;
+    string location = 5; 
+}
