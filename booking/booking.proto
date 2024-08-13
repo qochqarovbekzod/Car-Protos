@@ -35,6 +35,7 @@ service BookingService{
 
     rpc SearchProviders(SearchProvidersRequest) returns (SearchProvidersResponse);
     rpc SearchServices(SearchServicesRequest) returns (SearchServicesResponse);
+    rpc CreateGet(Void) returns (Service);
 }
 
 message Id{
@@ -248,7 +249,7 @@ message Providers{
     string description = 4;
     string services = 5;
     string availability = 6;
-    float average_rating = 7;
+    float  average_rating = 7;
     string location = 8;
     string created_at=9;
     string updated_at=10;
